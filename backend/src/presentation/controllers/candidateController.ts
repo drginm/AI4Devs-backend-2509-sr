@@ -31,4 +31,30 @@ export const getCandidateById = async (req: Request, res: Response) => {
     }
 };
 
+import { UpdateCandidateStageUseCase } from '../../application/services/updateCandidateStageUseCase';
+import { PrismaApplicationRepository } from '../../infrastructure/repositories/prismaApplicationRepository';
+
+const applicationRepository = new PrismaApplicationRepository();
+const updateCandidateStageUseCase = new UpdateCandidateStageUseCase(applicationRepository);
+
+export const updateStage = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { stage } = req.body;
+
+    try {
+        const result = await updateCandidateStageUseCase.execute(Number(id), stage);
+        res.status(200).json(result);
+    } catch (error: any) {
+        if (error.message === 'Invalid stage value') {
+             res.status(400).json({ error: error.message });
+        } else if (error.message === 'No active application found for this candidate') {
+             res.status(404).json({ error: error.message });
+        } else if (error.message === 'Application ID missing') {
+             res.status(500).json({ error: error.message });
+        } else {
+             res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+};
+
 export { addCandidate };

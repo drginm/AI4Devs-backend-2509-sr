@@ -1,0 +1,9 @@
+- [x] Define Interface: Update `backend/api-spec.yaml` with new endpoint definition <!-- id: 10 -->
+- [x] Domain: Define `CandidateWithStatus` model in `backend/src/domain/models/candidateWithStatus.ts` <!-- id: 11 -->
+- [x] Domain: Create `PositionRepository` interface in `backend/src/domain/repositories/positionRepository.ts` <!-- id: 12 -->
+- [x] Application: Create `GetPositionCandidatesUseCase` in `backend/src/application/services/getPositionCandidatesUseCase.ts` <!-- id: 13 -->
+- [x] Infrastructure: Create `PrismaPositionRepository` in `backend/src/infrastructure/repositories/prismaPositionRepository.ts` <!-- id: 14 -->
+- [x] Presentation: Create `PositionController` in `backend/src/presentation/controllers/positionController.ts` <!-- id: 15 -->
+- [x] Routes: Register route in `backend/src/routes/positionRoutes.ts` <!-- id: 16 -->
+- [x] Verification: Add unit tests for Use Case in `backend/tests/unit/getPositionCandidatesUseCase.test.ts` <!-- id: 17 -->
+- [x] Verification: Add integration tests for route in `backend/tests/integration/positionRoutes.test.ts` <!-- id: 18 -->

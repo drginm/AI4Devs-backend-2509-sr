@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, ApplicationStatus } from '@prisma/client';
 import { Interview } from './Interview';
 
 const prisma = new PrismaClient();
@@ -8,18 +8,18 @@ export class Application {
     positionId: number;
     candidateId: number;
     applicationDate: Date;
-    currentInterviewStep: number;
+    status: ApplicationStatus;
     notes?: string;
-    interviews: Interview[]; // Added this line
+    interviews: Interview[];
 
     constructor(data: any) {
         this.id = data.id;
         this.positionId = data.positionId;
         this.candidateId = data.candidateId;
         this.applicationDate = new Date(data.applicationDate);
-        this.currentInterviewStep = data.currentInterviewStep;
+        this.status = data.status || ApplicationStatus.APPLIED;
         this.notes = data.notes;
-        this.interviews = data.interviews || []; // Added this line
+        this.interviews = data.interviews || [];
     }
 
     async save() {
@@ -27,7 +27,7 @@ export class Application {
             positionId: this.positionId,
             candidateId: this.candidateId,
             applicationDate: this.applicationDate,
-            currentInterviewStep: this.currentInterviewStep,
+            status: this.status,
             notes: this.notes,
         };
 

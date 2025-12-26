@@ -83,7 +83,7 @@ export class Candidate {
                     positionId: app.positionId,
                     candidateId: app.candidateId,
                     applicationDate: app.applicationDate,
-                    currentInterviewStep: app.currentInterviewStep,
+                    status: app.status,
                     notes: app.notes,
                 }))
             };

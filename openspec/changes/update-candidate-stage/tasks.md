@@ -1,0 +1,5 @@
+- [x] Define `PUT /candidates/{id}/stage` in `api-spec.yaml`
+- [x] Implement `updateCandidateStage` in `candidateService` (or `applicationService`)
+- [x] Implement `PositionController.updateStage` (or related controller)
+- [x] Add route to `candidateRoutes` or `positionRoutes`
+- [x] Verify with tests

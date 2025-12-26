@@ -4,7 +4,49 @@ info:
   version: 1.0.0
   description: API for managing candidate data in the AI4Devs recruitment system.
 paths:
-  /candidates:
+  /candidates/{id}/stage:
+    put:
+      summary: Update candidate stage
+      description: Updates the status (stage) of the candidate's active application.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the candidate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stage:
+                  type: string
+                  description: New status/stage for the candidate (must be a valid ApplicationStatus)
+                  enum: [WITHDRAWN, REJECTED, HIRED, OFFER, INTERVIEWING, SCREENING, APPLIED]
+              required:
+                - stage
+      responses:
+        '200':
+          description: Stage updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  status:
+                    type: string
+        '400':
+          description: Invalid stage or input
+        '404':
+          description: Candidate or application not found
+        '500':
+          description: Internal server error
+
     post:
       summary: Add a new candidate
       description: Adds a new candidate to the system and returns the created candidate data.
@@ -185,4 +227,34 @@ paths:
           description: Invalid file type, only PDF and DOCX are allowed
         '500':
           description: Error during the file upload process
-
+  /positions/{id}/candidates:
+    get:
+      summary: Get candidates for a position
+      description: Retrieve all candidates applied to a specific position with their status.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the position
+      responses:
+        '200':
+          description: List of candidates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fullName:
+                      type: string
+                    currentInterviewStep:
+                      type: string
+                    averageScore:
+                      type: number
+        '400':
+          description: Invalid ID format
+        '404':
+          description: Position not found

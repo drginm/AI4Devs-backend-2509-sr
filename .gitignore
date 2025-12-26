@@ -26,3 +26,8 @@ yarn-error.log*
 .vscode
 
 # .env
+
+# Rules
+!.agent
+!.agent/rules
+!.agent/rules/express-backend.md
